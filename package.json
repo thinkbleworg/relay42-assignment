@@ -1,0 +1,50 @@
+{
+    "name": "relay42-assignment",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "start:dev": "webpack-cli serve --mode=development --env development --open --hot",
+        "build": "webpack --mode=production --env production --progress",
+        "lint": "eslint './src/**/*.{ts,tsx}'",
+        "lint:fix": "eslint './src/**/*.{ts,tsx}' --fix"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "devDependencies": {
+        "@types/node": "^18.14.6",
+        "@types/react": "^18.0.28",
+        "@types/react-dom": "^18.0.11",
+        "@types/webpack": "^5.28.0",
+        "@types/webpack-dev-server": "^4.7.2",
+        "@typescript-eslint/eslint-plugin": "^5.54.0",
+        "@typescript-eslint/parser": "^5.54.0",
+        "eslint": "^8.35.0",
+        "eslint-config-prettier": "^8.6.0",
+        "eslint-plugin-import": "^2.27.5",
+        "eslint-plugin-prettier": "^4.2.1",
+        "eslint-plugin-react": "^7.32.2",
+        "eslint-plugin-react-hooks": "^4.6.0",
+        "eslint-webpack-plugin": "^4.0.0",
+        "fork-ts-checker-webpack-plugin": "^7.3.0",
+        "html-webpack-plugin": "^5.5.0",
+        "prettier": "^2.8.4",
+        "ts-loader": "^9.4.2",
+        "ts-node": "^10.9.1",
+        "tsconfig-paths-webpack-plugin": "^4.0.0",
+        "typescript": "^4.9.5",
+        "webpack": "^5.75.0",
+        "webpack-cli": "^5.0.1",
+        "webpack-dev-server": "^4.11.1"
+    },
+    "dependencies": {
+        "@emotion/react": "^11.10.6",
+        "@emotion/styled": "^11.10.6",
+        "@fontsource/roboto": "^4.5.8",
+        "@mui/icons-material": "^5.11.11",
+        "@mui/material": "^5.11.11",
+        "react": "^18.2.0",
+        "react-dom": "^18.2.0"
+    }
+}
