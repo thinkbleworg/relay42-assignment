@@ -6,6 +6,7 @@ import Paper from "@mui/material/Paper";
 import MenuItem from "@mui/material/MenuItem";
 import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
+import FormHelperText from "@mui/material/FormHelperText";
 
 import AddIcon from "@mui/icons-material/Add";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -14,11 +15,13 @@ import {useFormContext, useFieldArray} from "react-hook-form";
 
 import TextInput from "./TextInput";
 import SelectInput from "./SelectInput";
+import CustomErrors from "./CustomFormError";
+import {v4 as uuidv4} from "uuid";
 
-import {TMemberForm} from "./schema";
+import {TMemberForm} from "../utils/schema";
+import {memberJobs, memberTypes} from "../utils/constants";
 
 interface IMemberLayout {
-    field: TMemberForm;
     idx: number;
     handleRemoveMember: (idx: number) => void;
 }
@@ -52,9 +55,11 @@ const MemberLayout = (props: IMemberLayout) => {
                 <MenuItem value="">
                     <em>None</em>
                 </MenuItem>
-                <MenuItem value="Pilot">Pilot</MenuItem>
-                <MenuItem value="Engineer">Engineer</MenuItem>
-                <MenuItem value="Passenger">Passenger</MenuItem>
+                {memberTypes.map((type: any, idx: number) => (
+                    <MenuItem value={type} key={`member-type-${idx}`}>
+                        {type}
+                    </MenuItem>
+                ))}
             </SelectInput>
             {(type === "Pilot" || type === "Engineer") && (
                 <TextInput
@@ -86,17 +91,18 @@ const MemberLayout = (props: IMemberLayout) => {
                     label="Job"
                     required={type === "Engineer"}
                     fullWidth
+                    defaultValue=""
                     arrayIndex={props.idx}
                     sx={{mr: 5}}
                 >
                     <MenuItem value="">
                         <em>None</em>
                     </MenuItem>
-                    <MenuItem value="Navigation">Navigation</MenuItem>
-                    <MenuItem value="Solar Panels">Solar Panels</MenuItem>
-                    <MenuItem value="Maintenance">Maintenance</MenuItem>
-                    <MenuItem value="Mechanics">Mechanics</MenuItem>
-                    <MenuItem value="Fuelling">Fuelling</MenuItem>
+                    {memberJobs.map((job: any, idx: number) => (
+                        <MenuItem value={job} key={`member-job-${idx}`}>
+                            {job}
+                        </MenuItem>
+                    ))}
                 </SelectInput>
             )}
             {type === "Passenger" && (
@@ -122,7 +128,11 @@ const MemberLayout = (props: IMemberLayout) => {
 };
 
 const MembersBlock = (props: any) => {
-    const {control} = useFormContext();
+    const [customErrors, setCustomError] = useState<any>("");
+    const {
+        control,
+        formState: {errors}
+    } = useFormContext();
 
     const {fields, append, remove} = useFieldArray({
         control: control,
@@ -131,6 +141,7 @@ const MembersBlock = (props: any) => {
 
     const handleAddMember = () => {
         append({
+            id: uuidv4(),
             name: "",
             type: ""
         });
@@ -140,7 +151,14 @@ const MembersBlock = (props: any) => {
         remove(idx);
     };
 
-    // console.log("fields --->", fields);s
+    // Look for custom errors in messageList field
+    useEffect(() => {
+        if (errors && errors.memberList && errors.memberList.type === "custom") {
+            setCustomError(errors.memberList.message);
+        } else {
+            setCustomError("");
+        }
+    }, [errors]);
 
     return (
         <Paper sx={{width: "100%", mt: 3, mb: 2}}>
@@ -148,6 +166,7 @@ const MembersBlock = (props: any) => {
                 <Typography variant="subtitle1" noWrap>
                     Members
                 </Typography>
+                {customErrors !== "" && <CustomErrors customError={customErrors} />}
                 <IconButton
                     aria-label="add member"
                     onClick={handleAddMember}
@@ -162,14 +181,10 @@ const MembersBlock = (props: any) => {
                 </IconButton>
             </Box>
 
-            {fields.map((field: TMemberForm, index: number) => (
-                <Box key={`member-list-${field.id}`}>
+            {fields.map(({id}, index: number) => (
+                <Box key={`member-list-${id}`}>
                     <Divider />
-                    <MemberLayout
-                        field={field}
-                        idx={index}
-                        handleRemoveMember={handleRemoveMember}
-                    />
+                    <MemberLayout idx={index} handleRemoveMember={handleRemoveMember} />
                 </Box>
             ))}
         </Paper>

@@ -3,6 +3,8 @@ import React, {useState, useEffect} from "react";
 import {alpha} from "@mui/material/styles";
 import Box from "@mui/material/Box";
 
+import {findDateDifference} from "components/utils/utils";
+
 interface IDateComparatorProps {
     departureDate: Date;
 }
@@ -22,9 +24,7 @@ const DateComparator = (props: IDateComparatorProps) => {
     });
 
     const findDifference = (date: Date) => {
-        const cDate = new Date();
-        const dDate = new Date(date);
-        const diff = Math.ceil((dDate.getTime() - cDate.getTime()) / (1000 * 3600 * 24));
+        const diff = findDateDifference(date);
         if (diff < 0) {
             setHelperText({
                 value: DEPARTED_TEXT,

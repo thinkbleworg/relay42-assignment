@@ -6,7 +6,7 @@ import DialogContent from "@mui/material/DialogContent";
 import Button from "@mui/material/Button";
 
 import ModalContext from "./ModalContext";
-import {TDialogWidth, IDialogPropTypes, TOpenDialog, TEmptyFn} from "../types";
+import {TDialogWidth, IDialogPropTypes, TOpenDialog, TEmptyFn} from "../utils/types";
 
 interface IStateTypes {
     value: IDialogPropTypes;
@@ -16,7 +16,7 @@ interface IStateTypes {
     cancelText?: string;
     width?: TDialogWidth;
     component: React.ReactNode;
-    okCallback: TEmptyFn;
+    okCallback: (value: any) => void;
     cancelCallback?: TEmptyFn;
 }
 
@@ -36,10 +36,10 @@ class DialogProvider2 extends React.Component<IPropTypes, IStateTypes> {
             width: "md",
             component: null,
             okCallback: () => {
-                console.log("ok Callback");
+                // console.log("ok Callback");
             },
             cancelCallback: () => {
-                console.log("cancel callback");
+                // console.log("cancel callback");
             },
             value: {
                 showModal: this.open,

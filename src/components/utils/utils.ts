@@ -19,10 +19,6 @@ export function getComparator<Key extends keyof any>(
         : (a, b) => -descendingComparator(a, b, orderBy);
 }
 
-// Since 2020 all major browsers ensure sort stability with Array.prototype.sort().
-// stableSort() brings sort stability to non-modern browsers (notably IE11). If you
-// only support modern browsers you can replace stableSort(exampleArray, exampleComparator)
-// with exampleArray.slice().sort(exampleComparator)
 export function stableSort<T>(array: readonly T[], comparator: (a: T, b: T) => number) {
     const stabilizedThis = array.map((el, index) => [el, index] as [T, number]);
     stabilizedThis.sort((a, b) => {
@@ -37,4 +33,23 @@ export function stableSort<T>(array: readonly T[], comparator: (a: T, b: T) => n
 
 export function stableSortFn<T>(array: readonly T[], comparator: (a: T, b: T) => number) {
     return array.slice().sort(comparator);
+}
+
+export function findDateDifference(date: Date) {
+    const cDate = new Date();
+    const dDate = new Date(date);
+    const diff = Math.ceil((dDate.getTime() - cDate.getTime()) / (1000 * 3600 * 24));
+    return diff;
+}
+
+export function formatDate(date) {
+    const d = new Date(date);
+    let month = "" + (d.getMonth() + 1);
+    let day = "" + d.getDate();
+    const year = d.getFullYear();
+
+    if (month.length < 2) month = "0" + month;
+    if (day.length < 2) day = "0" + day;
+
+    return [year, month, day].join("-");
 }

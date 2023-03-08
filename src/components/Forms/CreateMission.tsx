@@ -12,24 +12,35 @@ import {v4 as uuidv4} from "uuid";
 import TextInput from "./TextInput";
 import SelectInput from "./SelectInput";
 import MembersBlock from "./MembersBlock";
+import CustomErrors from "./CustomFormError";
 
-import {missionSchema, TMissionForm} from "./schema";
+import {NEW_MISSION_DATE_TO_SET, missionDestination, ERRORS} from "../utils/constants";
+import {formatDate, findDateDifference} from "../utils/utils";
 
-const CreateMission = () => {
-    const [loading, setLoading] = useState(false);
+import {missionSchema, TMissionForm} from "../utils/schema";
+import {IData} from "components/utils/types";
+
+const CreateMission = (props: any) => {
+    // console.log("props in create mission", props);
+    const {mode, missionData, okCallback} = props;
+
+    const [loading, setLoading] = useState<boolean>(false);
+    const [disableSubmit, setDisableSubmit] = useState<boolean>(false);
+
+    const STATIC_DEFAULT_VALUES = {
+        id: uuidv4(),
+        missionName: "",
+        destination: "Mars Alpha - 100",
+        departureDate: formatDate(new Date(Date.now() + NEW_MISSION_DATE_TO_SET * 86400000)),
+        memberList: [
+            {id: uuidv4(), name: "", type: "Pilot", experience: 10},
+            {id: uuidv4(), name: "", type: "Passenger", age: 1, wealth: ""}
+        ]
+    };
 
     const methods = useForm<TMissionForm>({
-        mode: "all",
         resolver: zodResolver(missionSchema),
-        defaultValues: {
-            missionName: "",
-            destination: "Mars Alpha - 100",
-            departureDate: "2023-03-01",
-            memberList: [
-                {name: "", type: "Pilot", experience: 10},
-                {name: "", type: "Passenger", age: undefined, wealth: ""}
-            ]
-        }
+        defaultValues: mode === "new" ? STATIC_DEFAULT_VALUES : missionData
     });
 
     const {
@@ -38,21 +49,36 @@ const CreateMission = () => {
         register,
         getValues,
         handleSubmit,
-        formState: {isSubmitSuccessful, errors}
+        formState: {isSubmitSuccessful, errors},
+        clearErrors
     } = methods;
 
     useEffect(() => {
         if (isSubmitSuccessful) {
             reset();
+            clearErrors();
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isSubmitSuccessful]);
 
     const onSubmitHandler: SubmitHandler<TMissionForm> = (values) => {
-        console.log(values);
+        // console.log(values);
+        if (okCallback) {
+            okCallback({mode, values: values});
+        }
     };
 
-    console.log(errors);
+    useEffect(() => {
+        if (mode === "edit" && missionData && missionData.hasOwnProperty("departureDate")) {
+            //Check for departed missions and disable submit button
+            const diff = findDateDifference(missionData.departureDate);
+            diff < 0 ? setDisableSubmit(true) : setDisableSubmit(false);
+        } else {
+            setDisableSubmit(false);
+        }
+    }, [mode, missionData]);
+
+    // console.log(errors);
 
     return (
         <FormProvider {...methods}>
@@ -63,8 +89,6 @@ const CreateMission = () => {
                 onSubmit={handleSubmit(onSubmitHandler)}
             >
                 <Box sx={{display: "flex", maxWidth: "75rem", alignItems: "flex-start"}}>
-                    <TextInput name="id" required label="Mission Id" type="text" hidden />
-
                     <TextInput
                         name="missionName"
                         required
@@ -78,10 +102,11 @@ const CreateMission = () => {
                         <MenuItem value="">
                             <em>None</em>
                         </MenuItem>
-                        <MenuItem value="Mars Alpha - 100">Mars Alpha - 100</MenuItem>
-                        <MenuItem value="Mars Alpha - 111">Mars Alpha - 111</MenuItem>
-                        <MenuItem value="Mars Alpha - 110">Mars Alpha - 110</MenuItem>
-                        <MenuItem value="Mars Alpha - 110">Mars Alpha - 110</MenuItem>
+                        {missionDestination.map((destination: any, idx: number) => (
+                            <MenuItem value={destination} key={`mission-destination-${idx}`}>
+                                {destination}
+                            </MenuItem>
+                        ))}
                     </SelectInput>
 
                     <TextInput
@@ -90,19 +115,39 @@ const CreateMission = () => {
                         fullWidth
                         label="Departure Date"
                         type="date"
+                        inputProps={{
+                            min: formatDate(new Date().toLocaleDateString())
+                        }}
                     />
                 </Box>
 
                 <MembersBlock />
 
-                <Box sx={{textAlign: "right"}}>
+                <Box
+                    sx={{
+                        textAlign: "right",
+                        display: "flex",
+                        justifyContent: "end",
+                        alignItems: "center"
+                    }}
+                >
+                    {disableSubmit && (
+                        <Box sx={{mr: 2}}>
+                            <CustomErrors customError={ERRORS.DEPARTED_MISSION} />
+                        </Box>
+                    )}
                     <LoadingButton
                         variant="contained"
                         type="submit"
                         loading={loading}
+                        disabled={disableSubmit}
                         sx={{py: "0.8rem", mt: "1rem"}}
                     >
-                        Create
+                        {mode === "edit" ? (
+                            <React.Fragment>Edit</React.Fragment>
+                        ) : (
+                            <React.Fragment>Create</React.Fragment>
+                        )}
                     </LoadingButton>
                 </Box>
             </Box>

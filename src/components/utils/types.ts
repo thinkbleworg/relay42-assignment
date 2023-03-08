@@ -64,7 +64,7 @@ export type TDialogWidth = "xl" | "lg" | "md" | "sm";
 export type TOpenDialog = (args: {
     component: React.ReactNode;
     title: string;
-    okCallback: () => void;
+    okCallback: (values: any) => void;
     cancelCallback?: () => void;
     width?: TDialogWidth;
     okText?: string;

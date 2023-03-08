@@ -15,7 +15,7 @@ const SelectInput: FC<TFormInputProps> = ({name, arrayIndex, children, ...otherP
         formState: {errors}
     } = useFormContext();
 
-    console.log("errors in text input --->", errors);
+    // console.log("errors in text input --->", errors);
 
     const hasError = (name: string, idx: number) => {
         if (idx === undefined) {

@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useContext} from "react";
+import React, {useState, useEffect} from "react";
 
 import Box from "@mui/material/Box";
 import Table from "@mui/material/Table";
@@ -16,18 +16,12 @@ import EditIcon from "@mui/icons-material/EditOutlined";
 import TableTitleHeader from "./TableTitleHeader";
 import TableHeader from "./TableHeader";
 import DateComparator from "./DateComparator";
-import CreateMission from "components/Forms/CreateMission";
 
-import ModalContext from "components/Dialog/ModalContext";
-import {IDialogPropTypes} from "../types";
-
-import {IDataList, IData, TSortOrder} from "components/types";
-import {getComparator, stableSort} from "components/utils";
+import {IDataList, IData, TSortOrder} from "components/utils/types";
+import {getComparator, stableSort} from "components/utils/utils";
 
 const MissionTable = (props: any) => {
-    const {showModal, closeModal} = useContext<IDialogPropTypes>(ModalContext);
-
-    const [data, setData] = useState(props.missions);
+    const data = props.missions;
     const [searchKey, setSearchKey] = useState<string>("");
     const [searched, setSearched] = useState<IDataList>();
     const [rows, setRows] = useState([]);
@@ -45,7 +39,7 @@ const MissionTable = (props: any) => {
 
     const handleSelectAllClick = (event: React.ChangeEvent<HTMLInputElement>) => {
         if (event.target.checked) {
-            const newSelected = rows.map((n) => n.missionName);
+            const newSelected = rows.map((n) => n.id);
             setSelected(newSelected);
             return;
         }
@@ -81,8 +75,14 @@ const MissionTable = (props: any) => {
         setPage(0);
     };
 
+    const handleCreateBtnClick = () => {
+        props.modalTriggerCallback();
+    };
+
     const handleEditItem = (event: React.MouseEvent<unknown>, id: string) => {
-        console.log("item to edit -->", id);
+        // console.log("item to edit -->", id);
+        const editMission = data.filter((item: IData) => item.id === id);
+        props.modalTriggerCallback((editMission.length > 0 && editMission[0]) || undefined);
     };
 
     const updateSearchResults = (newRows: IDataList) => {
@@ -91,33 +91,7 @@ const MissionTable = (props: any) => {
 
     const updateData = (newRows: IDataList) => {
         setSelected([]);
-        setData(newRows);
-    };
-
-    const handleModalOkClick = () => {
-        console.log("ok clicked");
-    };
-
-    const handleModalCloseClick = () => {
-        console.log("close clicked");
-        closeModal();
-    };
-
-    const handleCreateBtnClick = () => {
-        const component = <CreateMission />;
-        showModal({
-            component,
-            title: "Configure a new mission",
-            okCallback: () => {
-                handleModalOkClick();
-            },
-            cancelCallback: () => {
-                handleModalCloseClick();
-            },
-            width: "lg"
-            // okText: "OK",
-            // cancelText: "Cancel"
-        });
+        props.setData(newRows);
     };
 
     const isSelected = (name: string) => selected.indexOf(name) !== -1;

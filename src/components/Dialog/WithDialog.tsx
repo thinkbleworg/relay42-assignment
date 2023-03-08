@@ -1,5 +1,5 @@
 import React from "react";
-import {IDialogPropTypes} from "../types";
+import {IDialogPropTypes} from "../utils/types";
 import ModalContext from "./ModalContext";
 
 const withDialog = <P extends IDialogPropTypes>(Component: React.ComponentType<P>) => {

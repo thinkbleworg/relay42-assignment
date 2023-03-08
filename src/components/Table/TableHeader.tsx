@@ -8,7 +8,7 @@ import TableSortLabel from "@mui/material/TableSortLabel";
 import Checkbox from "@mui/material/Checkbox";
 import {visuallyHidden} from "@mui/utils";
 
-import {TSortOrder, IData} from "components/types";
+import {TSortOrder, IData} from "components/utils/types";
 
 interface IHeadItems {
     disablePadding: boolean;

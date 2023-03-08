@@ -8,7 +8,7 @@ type TFormInputProps = {
     arrayIndex?: number;
 } & TextFieldProps;
 
-const TextInput: FC<TFormInputProps> = ({name, arrayIndex, value, ...otherProps}) => {
+const TextInput: FC<TFormInputProps> = ({name, arrayIndex, ...otherProps}) => {
     const {
         control,
         formState: {errors}
@@ -49,7 +49,6 @@ const TextInput: FC<TFormInputProps> = ({name, arrayIndex, value, ...otherProps}
             defaultValue=""
             render={({field}) => (
                 <TextField
-                    value={value}
                     {...otherProps}
                     {...field}
                     error={hasError(name, arrayIndex)}

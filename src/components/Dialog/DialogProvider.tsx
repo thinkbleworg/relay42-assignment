@@ -9,7 +9,7 @@ import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 
 import ModalContext from "./ModalContext";
-import {TDialogWidth, IDialogPropTypes, TOpenDialog, TEmptyFn} from "../types";
+import {TDialogWidth, IDialogPropTypes, TOpenDialog, TEmptyFn} from "../utils/types";
 
 export interface IDialogTitleProps {
     children?: React.ReactNode;
@@ -51,7 +51,7 @@ const DialogProvider = (props: IPropTypes) => {
     const [cancelText, setCancelText] = useState<string>("Cancel");
     const [width, setWidth] = useState<DialogProps["maxWidth"]>("md");
     const [component, setComponent] = useState<React.ReactNode>(null);
-    const [okCallback, setOkCallback] = useState<TEmptyFn>(null);
+    const [okCallback, setOkCallback] = useState(null);
     const [cancelCallback, setCancelCallback] = useState<TEmptyFn>(null);
 
     const openFn: TOpenDialog = ({
@@ -68,12 +68,12 @@ const DialogProvider = (props: IPropTypes) => {
         setWidth(width);
         setCancelText(cancelText);
         setOkText(okText);
-        setOkCallback(() => () => {
-            console.log("ok callback");
-            okCallback();
+        setOkCallback((value: any) => () => {
+            // console.log("ok callback");
+            okCallback(value);
         });
         setCancelCallback(() => () => {
-            console.log("cancel callback");
+            // console.log("cancel callback");
             cancelCallback();
         });
         setIsOpen(true);

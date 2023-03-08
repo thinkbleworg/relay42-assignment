@@ -1,6 +1,6 @@
 import React, {Context, createContext} from "react";
 
-import {TDialogWidth, IDialogPropTypes} from "../types";
+import {TDialogWidth, IDialogPropTypes} from "../utils/types";
 
 const ModalContext: Context<IDialogPropTypes> = createContext({
     showModal: (args: {
@@ -12,7 +12,7 @@ const ModalContext: Context<IDialogPropTypes> = createContext({
         okText?: string;
         cancelText?: string;
     }) => {
-        console.log(args);
+        // console.log(args);
     },
     closeModal: () => void {}
 });

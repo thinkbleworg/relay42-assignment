@@ -15,7 +15,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import CancelIcon from "@mui/icons-material/Cancel";
 import AddIcon from "@mui/icons-material/Add";
 
-import {IDataList, IData} from "components/types";
+import {IDataList, IData} from "components/utils/types";
 
 interface TableTitleHeaderProps {
     selected: readonly string[]; //array of strings
@@ -50,7 +50,7 @@ export default function TableTitleHeader(props: TableTitleHeaderProps) {
     };
 
     const handleDelete = () => {
-        console.log("selected -->", selected);
+        // console.log("selected -->", selected);
         const filteredRows = rows.filter((row: IData) => {
             return !selected.includes(row.id);
         });

@@ -1,46 +1,53 @@
-import {z, object, array, string, number, TypeOf, infer, enum as zodEnum} from "zod";
+import {z, object, array, string, number, TypeOf, infer, enum as zodEnum, coerce} from "zod";
 import {createTypeAlias, printNode, zodToTs} from "zod-to-ts";
 
-const memberTypes = ["Pilot", "Engineer", "Passenger"] as const;
-const memberJobs = ["Navigation", "Solar Panels", "Maintenance", "Mechanics", "Fuelling"] as const;
+import {ERRORS, memberJobs, memberTypes} from "./constants";
 
 export const memberSchema = object({
     id: string().uuid(),
     name: string()
-        .nonempty("Name is required")
-        .max(32, "Member Name must be less than 32 characters"),
-    type: zodEnum(memberTypes),
-    experience: string().regex(/^\d+$/).transform(Number).optional().or(z.literal("")),
-    wealth: string().optional().or(z.literal("")),
-    job: zodEnum(memberJobs).optional().or(z.literal("")),
-    age: string().regex(/^\d+$/).transform(Number).optional().or(z.literal(""))
+        .nonempty(ERRORS.MEMBER_NAME.REQUIRED)
+        .max(32, ERRORS.MEMBER_NAME.MAX_LIMIT_REACHED),
+    type: zodEnum(memberTypes, {
+        errorMap: (issue, _ctx) => {
+            switch (issue.code) {
+                case "invalid_type":
+                    return {message: ERRORS.TYPE.REQUIRED};
+                case "invalid_enum_value":
+                    return {message: ERRORS.TYPE.REQUIRED};
+                default:
+                    return {message: ERRORS.TYPE.REQUIRED};
+            }
+        }
+    }),
+    wealth: string().optional(),
+    experience: coerce.number().min(1).max(30).optional(),
+    job: zodEnum(memberJobs).optional(),
+    age: coerce.number().min(10).max(60).optional()
 }).superRefine((data, ctx) => {
-    console.log("data.type -->", data.type);
+    // console.log("data.type -->", data.type);
 
     if (data.type === undefined || data.type === null) {
         ctx.addIssue({
             code: z.ZodIssueCode.custom,
             path: ["type"],
-            message: "Type of member is required"
+            message: ERRORS.TYPE.REQUIRED
         });
-        return false;
     }
     if (data.type === "Pilot") {
         if (data.experience === undefined) {
             ctx.addIssue({
                 code: z.ZodIssueCode.custom,
                 path: ["experience"],
-                message: "Experience is required"
+                message: ERRORS.EXPERIENCE.REQUIRED
             });
-            return false;
         }
         if (data.experience !== undefined && data.experience < 10) {
             ctx.addIssue({
                 code: z.ZodIssueCode.custom,
                 path: ["experience"],
-                message: "Experience for pilot should be more than 10"
+                message: ERRORS.EXPERIENCE.PILOT_EXPERIENCE_RULE
             });
-            return false;
         }
     }
 
@@ -49,17 +56,15 @@ export const memberSchema = object({
             ctx.addIssue({
                 code: z.ZodIssueCode.custom,
                 path: ["experience"],
-                message: "Experience is required"
+                message: ERRORS.EXPERIENCE.REQUIRED
             });
-            return false;
         }
         if (data.job === undefined || data.job === null) {
             ctx.addIssue({
                 code: z.ZodIssueCode.custom,
                 path: ["job"],
-                message: "Job is required"
+                message: ERRORS.JOB.REQUIRED
             });
-            return false;
         }
     }
 
@@ -68,56 +73,44 @@ export const memberSchema = object({
             ctx.addIssue({
                 code: z.ZodIssueCode.custom,
                 path: ["age"],
-                message: "Age is required"
+                message: ERRORS.AGE.REQUIRED
             });
-            return false;
-        }
-        if (data.wealth === undefined || data.wealth === "") {
-            ctx.addIssue({
-                code: z.ZodIssueCode.custom,
-                path: ["wealth"],
-                message: "Wealth is required"
-            });
-            return false;
         }
     }
     return true;
 });
 
 export const missionSchema = object({
-    id: z.string().uuid(),
+    id: string().uuid(),
     missionName: string()
-        .nonempty("Mission Name is required")
-        .max(32, "Mission Name must be less than 32 characters"),
+        .nonempty(ERRORS.MISSION_NAME.REQUIRED)
+        .max(32, ERRORS.MISSION_NAME.MAX_LIMIT_REACHED),
     destination: string().optional(),
-    departureDate: string().nonempty("Departure Date is required"),
+    departureDate: string().nonempty(ERRORS.DEPARTURE_DATE.REQUIRED),
     memberList: array(memberSchema).superRefine((data, ctx) => {
-        console.log("memberList array data", data);
+        // console.log("memberList array data", data);
 
         //Contains atleast one pilot
         const pilotList = data.filter((d) => d.type === "Pilot");
-        console.log("pilotList", pilotList);
+        // console.log("pilotList", pilotList);
         if (pilotList.length === 0) {
             ctx.addIssue({
                 code: z.ZodIssueCode.custom,
-                message: "One pilot is required"
+                message: ERRORS.TYPE.ONE_PILOT_REQUIRED_RULE
             });
-            return false;
         } else if (pilotList.length > 1) {
             ctx.addIssue({
                 code: z.ZodIssueCode.custom,
-                message: "Not more than one pilot is allowed"
+                message: ERRORS.TYPE.ONLY_ONE_PILOT_RULE
             });
-            return false;
         }
 
         //Contains atleast one passenger
         if (!data.some((d) => d.type === "Passenger")) {
             ctx.addIssue({
                 code: z.ZodIssueCode.custom,
-                message: "Atleast one passenger is required"
+                message: ERRORS.TYPE.ONE_PASSENGER_REQUIRED_RULE
             });
-            return false;
         }
 
         // Duplicate of engineer job list
@@ -125,12 +118,9 @@ export const missionSchema = object({
         if (engineerJobList.some((d, idx) => engineerJobList.indexOf(d) !== idx)) {
             ctx.addIssue({
                 code: z.ZodIssueCode.custom,
-                message: "Engineers cannot have same job"
+                message: ERRORS.JOB.NO_SAME_JOB_RULE
             });
-            return false;
         }
-
-        return true;
     })
 });
 

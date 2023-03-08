@@ -7,16 +7,11 @@
                     "id": "b40dcec0-3732-43c6-a98d-4995f409cc92",
                     "type": "Pilot",
                     "experience": 11,
-                    "job": null,
-                    "age": 42,
-                    "wealth": null,
                     "name": "Wilbur Willms"
                 },
                 {
                     "id": "85417392-36e1-4462-9ec1-8eaae6942b92",
                     "type": "Passenger",
-                    "experience": null,
-                    "job": null,
                     "age": 30,
                     "wealth": "Rich",
                     "name": "Kenneth Brakus"
@@ -26,8 +21,6 @@
                     "type": "Engineer",
                     "experience": 5,
                     "job": "Navigation",
-                    "age": 49,
-                    "wealth": null,
                     "name": "Felipe Paucek"
                 },
                 {
@@ -35,8 +28,6 @@
                     "type": "Engineer",
                     "experience": 2,
                     "job": "Maintenance",
-                    "age": 24,
-                    "wealth": null,
                     "name": "Seth Russel"
                 },
                 {
@@ -44,15 +35,11 @@
                     "type": "Engineer",
                     "experience": 9,
                     "job": "Mechanics",
-                    "age": 38,
-                    "wealth": null,
                     "name": "Seth Thiel"
                 },
                 {
                     "id": "ad691eb1-e4b4-4b69-8d81-acd1a8f913c1",
                     "type": "Passenger",
-                    "experience": null,
-                    "job": null,
                     "age": 28,
                     "wealth": "Rich",
                     "name": "Glenda Abernathy"
@@ -69,9 +56,6 @@
                     "id": "2ed05743-6b2f-431e-9190-6b2a8b07364d",
                     "type": "Pilot",
                     "experience": 15,
-                    "job": null,
-                    "age": 47,
-                    "wealth": null,
                     "name": "Jimmie Murray"
                 },
                 {
@@ -79,8 +63,6 @@
                     "type": "Engineer",
                     "experience": 12,
                     "job": "Maintenance",
-                    "age": 44,
-                    "wealth": null,
                     "name": "Lana Gleason"
                 },
                 {
@@ -88,8 +70,6 @@
                     "type": "Engineer",
                     "experience": 8,
                     "job": "Mechanics",
-                    "age": 36,
-                    "wealth": null,
                     "name": "Monica Brekke"
                 }
             ],
@@ -104,16 +84,11 @@
                     "id": "e9384a04-6c9c-4bba-b11b-44f3c6524038",
                     "type": "Pilot",
                     "experience": 18,
-                    "job": null,
-                    "age": 50,
-                    "wealth": null,
                     "name": "Vincent Carroll"
                 },
                 {
                     "id": "b75d22e1-680f-4303-9296-d7ad3fd8e72b",
                     "type": "Passenger",
-                    "experience": null,
-                    "job": null,
                     "age": 18,
                     "wealth": "Rich",
                     "name": "Juanita Rogahn"
@@ -121,8 +96,6 @@
                 {
                     "id": "f7827585-a7ad-498e-88ae-efc9c62ef029",
                     "type": "Passenger",
-                    "experience": null,
-                    "job": null,
                     "age": 30,
                     "wealth": "Rich",
                     "name": "Robyn Kuvalis"
@@ -139,16 +112,11 @@
                     "id": "43477f55-20bf-465c-abc7-31288df51079",
                     "type": "Pilot",
                     "experience": 18,
-                    "job": null,
-                    "age": 50,
-                    "wealth": null,
                     "name": "Herbert Cummings"
                 },
                 {
                     "id": "a95dcc0b-aefc-4af4-b971-9e47e91ed00f",
                     "type": "Passenger",
-                    "experience": null,
-                    "job": null,
                     "age": 33,
                     "wealth": "Rich",
                     "name": "Margarita Grant"
@@ -156,8 +124,6 @@
                 {
                     "id": "593c89f9-929b-41c6-bee5-29273a72f295",
                     "type": "Passenger",
-                    "experience": null,
-                    "job": null,
                     "age": 30,
                     "wealth": "Rich",
                     "name": "Carmen Braun"
@@ -165,8 +131,6 @@
                 {
                     "id": "9d95688d-8bb3-425a-8ba8-6b79efaab2f8",
                     "type": "Passenger",
-                    "experience": null,
-                    "job": null,
                     "age": 35,
                     "wealth": "Rich",
                     "name": "Terry Rogahn"
@@ -176,8 +140,6 @@
                     "type": "Engineer",
                     "experience": 12,
                     "job": "Solar panels",
-                    "age": 44,
-                    "wealth": null,
                     "name": "Jay Weber"
                 }
             ],
@@ -192,9 +154,6 @@
                     "id": "fbb15f1a-f27a-4aa5-8dd3-b16e359277bb",
                     "type": "Pilot",
                     "experience": 12,
-                    "job": null,
-                    "age": 38,
-                    "wealth": null,
                     "name": "Arturo Borer"
                 },
                 {
@@ -202,8 +161,6 @@
                     "type": "Engineer",
                     "experience": 8,
                     "job": "Solar panels",
-                    "age": 34,
-                    "wealth": null,
                     "name": "Dawn Jast"
                 },
                 {
@@ -211,15 +168,11 @@
                     "type": "Engineer",
                     "experience": 12,
                     "job": "Mechanics",
-                    "age": 43,
-                    "wealth": null,
                     "name": "Margaret Mohr"
                 },
                 {
                     "id": "f8ce3623-6b94-4107-80c3-768aabed4259",
                     "type": "Passenger",
-                    "experience": null,
-                    "job": null,
                     "age": 23,
                     "wealth": "Rich",
                     "name": "Desiree Simonis"
@@ -227,8 +180,6 @@
                 {
                     "id": "e12aaba8-6e0b-4f0b-80ad-a9f884101ffb",
                     "type": "Passenger",
-                    "experience": null,
-                    "job": null,
                     "age": 35,
                     "wealth": "Rich",
                     "name": "Ronnie Schumm"
@@ -245,16 +196,11 @@
                     "id": "dc0db2d4-b830-42aa-98ca-aefa29037824",
                     "type": "Pilot",
                     "experience": 12,
-                    "job": null,
-                    "age": 36,
-                    "wealth": null,
                     "name": "Madeline Towne"
                 },
                 {
                     "id": "c8e21733-722c-421a-8bf3-138a0b0088bf",
                     "type": "Passenger",
-                    "experience": null,
-                    "job": null,
                     "age": 46,
                     "wealth": "Rich",
                     "name": "Melba Morissette"
@@ -262,8 +208,6 @@
                 {
                     "id": "92de3de0-2100-4310-9adb-344575b4baa7",
                     "type": "Passenger",
-                    "experience": null,
-                    "job": null,
                     "age": 35,
                     "wealth": "Rich",
                     "name": "Gwendolyn Paucek"
@@ -280,16 +224,11 @@
                     "id": "2e4dab22-115e-4392-86e3-fb39b20276fe",
                     "type": "Pilot",
                     "experience": 21,
-                    "job": null,
-                    "age": 59,
-                    "wealth": null,
                     "name": "Beth Crooks"
                 },
                 {
                     "id": "15bd47b8-15fe-4e9b-84b1-33b42b8b5047",
                     "type": "Passenger",
-                    "experience": null,
-                    "job": null,
                     "age": 27,
                     "wealth": "Rich",
                     "name": "Melanie Carroll"
@@ -299,8 +238,6 @@
                     "type": "Engineer",
                     "experience": 12,
                     "job": "Mechanics",
-                    "age": 43,
-                    "wealth": null,
                     "name": "Robin Ferry"
                 },
                 {
@@ -308,8 +245,6 @@
                     "type": "Engineer",
                     "experience": 10,
                     "job": "Navigation",
-                    "age": 45,
-                    "wealth": null,
                     "name": "Julio Reinger"
                 },
                 {
@@ -317,8 +252,6 @@
                     "type": "Engineer",
                     "experience": 4,
                     "job": "Solar panels",
-                    "age": 28,
-                    "wealth": null,
                     "name": "Shawn Bartell"
                 },
                 {
@@ -326,8 +259,6 @@
                     "type": "Engineer",
                     "experience": 8,
                     "job": "Maintenance",
-                    "age": 33,
-                    "wealth": null,
                     "name": "Otis Kessler"
                 },
                 {
@@ -335,8 +266,6 @@
                     "type": "Engineer",
                     "experience": 10,
                     "job": "Fuelling",
-                    "age": 37,
-                    "wealth": null,
                     "name": "Carrie Kshlerin"
                 }
             ],
@@ -351,16 +280,11 @@
                     "id": "ca88d11d-4a0e-43c5-a0c2-de28829c17fe",
                     "type": "Pilot",
                     "experience": 17,
-                    "job": null,
-                    "age": 55,
-                    "wealth": null,
                     "name": "Corey Wilderman"
                 },
                 {
                     "id": "a10cb829-7617-4e5b-9544-0438474e529f",
                     "type": "Passenger",
-                    "experience": null,
-                    "job": null,
                     "age": 17,
                     "wealth": "Rich",
                     "name": "Jeff Pouros"
@@ -368,8 +292,6 @@
                 {
                     "id": "73d0b2a6-e225-45c2-9b99-12142294eece",
                     "type": "Passenger",
-                    "experience": null,
-                    "job": null,
                     "age": 34,
                     "wealth": "Rich",
                     "name": "Ramon Lind"
@@ -377,8 +299,6 @@
                 {
                     "id": "46c76ea2-475f-4f4e-b33a-6b3ffe14360f",
                     "type": "Passenger",
-                    "experience": null,
-                    "job": null,
                     "age": 30,
                     "wealth": "Rich",
                     "name": "Patty Block"
@@ -386,8 +306,6 @@
                 {
                     "id": "08bb5f35-0334-42d7-a0e6-0fe51915e32c",
                     "type": "Passenger",
-                    "experience": null,
-                    "job": null,
                     "age": 22,
                     "wealth": "Rich",
                     "name": "Harriet O'Keefe"
@@ -395,8 +313,6 @@
                 {
                     "id": "fcc7431c-6355-4234-94e2-4f333bf06cb7",
                     "type": "Passenger",
-                    "experience": null,
-                    "job": null,
                     "age": 29,
                     "wealth": "Rich",
                     "name": "Jill Breitenberg"
@@ -413,16 +329,11 @@
                     "id": "bd4b0719-426e-46f0-9128-d00e46bc651d",
                     "type": "Pilot",
                     "experience": 15,
-                    "job": null,
-                    "age": 54,
-                    "wealth": null,
                     "name": "Winston Nikolaus"
                 },
                 {
                     "id": "02e248d9-0fb4-4b77-8173-afdc571bfd61",
                     "type": "Passenger",
-                    "experience": null,
-                    "job": null,
                     "age": 28,
                     "wealth": "Rich",
                     "name": "Mathew Marvin"
@@ -430,8 +341,6 @@
                 {
                     "id": "67a94b0a-bd5e-4bcf-b42e-e6817c1c14e6",
                     "type": "Passenger",
-                    "experience": null,
-                    "job": null,
                     "age": 24,
                     "wealth": "Rich",
                     "name": "Chris Lubowitz"
@@ -448,9 +357,6 @@
                     "id": "c240ca43-e90f-472e-9438-925c1bf66223",
                     "type": "Pilot",
                     "experience": 18,
-                    "job": null,
-                    "age": 53,
-                    "wealth": null,
                     "name": "Jonathan Treutel"
                 },
                 {
@@ -458,8 +364,6 @@
                     "type": "Engineer",
                     "experience": 10,
                     "job": "Fuelling",
-                    "age": 40,
-                    "wealth": null,
                     "name": "Darlene Dicki"
                 }
             ],
@@ -474,9 +378,6 @@
                     "id": "7a2dd4b4-48ab-408c-9b23-24c4c67f69f7",
                     "type": "Pilot",
                     "experience": 10,
-                    "job": null,
-                    "age": 40,
-                    "wealth": null,
                     "name": "Julia King"
                 },
                 {
@@ -484,8 +385,6 @@
                     "type": "Engineer",
                     "experience": 17,
                     "job": "Navigation",
-                    "age": 60,
-                    "wealth": null,
                     "name": "Bradley Schowalter"
                 },
                 {
@@ -493,8 +392,6 @@
                     "type": "Engineer",
                     "experience": 4,
                     "job": "Fuelling",
-                    "age": 33,
-                    "wealth": null,
                     "name": "Lela Stroman"
                 }
             ],
@@ -509,9 +406,6 @@
                     "id": "3bf428e1-3d0f-4e4d-b746-9a7777581561",
                     "type": "Pilot",
                     "experience": 15,
-                    "job": null,
-                    "age": 46,
-                    "wealth": null,
                     "name": "Caroline Collier"
                 },
                 {
@@ -519,8 +413,6 @@
                     "type": "Engineer",
                     "experience": 16,
                     "job": "Maintenance",
-                    "age": 55,
-                    "wealth": null,
                     "name": "Cynthia Johns"
                 },
                 {
@@ -528,8 +420,6 @@
                     "type": "Engineer",
                     "experience": 20,
                     "job": "Mechanics",
-                    "age": 60,
-                    "wealth": null,
                     "name": "Jackie Wyman"
                 }
             ],
@@ -544,16 +434,11 @@
                     "id": "1ba6a237-defe-462c-9720-df55f524283f",
                     "type": "Pilot",
                     "experience": 12,
-                    "job": null,
-                    "age": 44,
-                    "wealth": null,
                     "name": "Rafael Ondricka"
                 },
                 {
                     "id": "f40a7abd-f4cd-4606-979b-a1922de94715",
                     "type": "Passenger",
-                    "experience": null,
-                    "job": null,
                     "age": 25,
                     "wealth": "Rich",
                     "name": "Janie Mills"
@@ -561,8 +446,6 @@
                 {
                     "id": "8d4143fa-015d-4008-bf18-053b0b1b9349",
                     "type": "Passenger",
-                    "experience": null,
-                    "job": null,
                     "age": 23,
                     "wealth": "Rich",
                     "name": "Aubrey Kiehn"
@@ -570,8 +453,6 @@
                 {
                     "id": "12463979-342c-47ca-85e5-f6b598d52a67",
                     "type": "Passenger",
-                    "experience": null,
-                    "job": null,
                     "age": 30,
                     "wealth": "Rich",
                     "name": "Israel Greenholt"
@@ -579,8 +460,6 @@
                 {
                     "id": "5ae16819-18c3-42cd-a9c1-970e22cf3ccd",
                     "type": "Passenger",
-                    "experience": null,
-                    "job": null,
                     "age": 35,
                     "wealth": "Rich",
                     "name": "Gloria Nader"
@@ -597,9 +476,6 @@
                     "id": "90fa9db2-fb51-4b21-8e82-3022e0f1f8c7",
                     "type": "Pilot",
                     "experience": 15,
-                    "job": null,
-                    "age": 48,
-                    "wealth": null,
                     "name": "Luke Roberts"
                 },
                 {
@@ -607,15 +483,11 @@
                     "type": "Engineer",
                     "experience": 13,
                     "job": "Fuelling",
-                    "age": 45,
-                    "wealth": null,
                     "name": "Jan Ward"
                 },
                 {
                     "id": "de12d2e5-4095-4e1c-8d95-4d6383d4419d",
                     "type": "Passenger",
-                    "experience": null,
-                    "job": null,
                     "age": 57,
                     "wealth": "Rich",
                     "name": "Allen Beier"
@@ -632,16 +504,11 @@
                     "id": "5b82cf2d-7cb0-4f08-bb73-bf0f6d4f7bc4",
                     "type": "Pilot",
                     "experience": 11,
-                    "job": null,
-                    "age": 39,
-                    "wealth": null,
                     "name": "Kimberly O'Connell"
                 },
                 {
                     "id": "5613fd7c-e240-4569-986d-332f674f73ba",
                     "type": "Passenger",
-                    "experience": null,
-                    "job": null,
                     "age": 26,
                     "wealth": "Rich",
                     "name": "Jenna Erdman"
@@ -651,8 +518,6 @@
                     "type": "Engineer",
                     "experience": 17,
                     "job": "Navigation",
-                    "age": 48,
-                    "wealth": null,
                     "name": "Emanuel Gutmann"
                 },
                 {
@@ -660,8 +525,6 @@
                     "type": "Engineer",
                     "experience": 13,
                     "job": "Fuelling",
-                    "age": 42,
-                    "wealth": null,
                     "name": "Josefina Frami"
                 },
                 {
@@ -669,8 +532,6 @@
                     "type": "Engineer",
                     "experience": 10,
                     "job": "Solar panels",
-                    "age": 40,
-                    "wealth": null,
                     "name": "Judith Breitenberg"
                 },
                 {
@@ -678,8 +539,6 @@
                     "type": "Engineer",
                     "experience": 13,
                     "job": "Maintenance",
-                    "age": 44,
-                    "wealth": null,
                     "name": "Laura Huels"
                 }
             ],
