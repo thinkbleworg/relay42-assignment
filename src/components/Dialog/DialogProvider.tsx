@@ -9,7 +9,7 @@ import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 
 import ModalContext from "./ModalContext";
-import {TDialogWidth, IDialogPropTypes, TOpenDialog, TEmptyFn} from "../utils/types";
+import {IDialogPropTypes, TOpenDialog, TEmptyFn} from "../utils/types";
 
 export interface IDialogTitleProps {
     children?: React.ReactNode;

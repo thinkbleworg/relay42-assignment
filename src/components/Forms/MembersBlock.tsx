@@ -18,7 +18,6 @@ import SelectInput from "./SelectInput";
 import CustomErrors from "./CustomFormError";
 import {v4 as uuidv4} from "uuid";
 
-import {TMemberForm} from "../utils/schema";
 import {memberJobs, memberTypes} from "../utils/constants";
 
 interface IMemberLayout {
