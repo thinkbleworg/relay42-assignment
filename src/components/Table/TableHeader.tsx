@@ -10,14 +10,14 @@ import {visuallyHidden} from "@mui/utils";
 
 import {TSortOrder, IData} from "components/types";
 
-interface HeadItems {
+interface IHeadItems {
     disablePadding: boolean;
     id: keyof IData;
     label: string;
     numeric: boolean;
 }
 
-const headItems: readonly HeadItems[] = [
+const headItems: readonly IHeadItems[] = [
     {
         id: "missionName",
         numeric: false,
@@ -38,7 +38,7 @@ const headItems: readonly HeadItems[] = [
     },
     {
         id: "departureDate",
-        numeric: false,
+        numeric: true,
         disablePadding: false,
         label: "Departure"
     }

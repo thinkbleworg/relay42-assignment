@@ -12,7 +12,7 @@ import InputBase from "@mui/material/InputBase";
 import DeleteIcon from "@mui/icons-material/Delete";
 import SearchIcon from "@mui/icons-material/Search";
 
-import CancelRoundedIcon from "@material-ui/icons/CancelRounded";
+import CancelIcon from "@mui/icons-material/Cancel";
 import AddIcon from "@mui/icons-material/Add";
 
 import {IDataList, IData} from "components/types";
@@ -156,7 +156,7 @@ export default function TableTitleHeader(props: TableTitleHeaderProps) {
                                 })}
                             >
                                 <IconButton aria-label="Reset" onClick={() => setSearchKey("")}>
-                                    <CancelRoundedIcon />
+                                    <CancelIcon />
                                 </IconButton>
                             </Box>
                         )}

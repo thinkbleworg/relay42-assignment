@@ -15,7 +15,8 @@ import EditIcon from "@mui/icons-material/EditOutlined";
 
 import TableTitleHeader from "./TableTitleHeader";
 import TableHeader from "./TableHeader";
-import CreateMission from "components/CreateMission/CreateMission";
+import DateComparator from "./DateComparator";
+import CreateMission from "components/Forms/CreateMission";
 
 import ModalContext from "components/Dialog/ModalContext";
 import {IDialogPropTypes} from "../types";
@@ -106,16 +107,16 @@ const MissionTable = (props: any) => {
         const component = <CreateMission />;
         showModal({
             component,
-            title: "Sample Title",
+            title: "Configure a new mission",
             okCallback: () => {
                 handleModalOkClick();
             },
             cancelCallback: () => {
                 handleModalCloseClick();
             },
-            width: "lg",
-            okText: "OK",
-            cancelText: "Cancel"
+            width: "lg"
+            // okText: "OK",
+            // cancelText: "Cancel"
         });
     };
 
@@ -193,7 +194,9 @@ const MissionTable = (props: any) => {
                                                 {row.memberList.length}
                                             </TableCell>
                                             <TableCell>{row.destination}</TableCell>
-                                            <TableCell>{row.departureDate}</TableCell>
+                                            <TableCell align="right">
+                                                <DateComparator departureDate={row.departureDate} />
+                                            </TableCell>
                                             <TableCell>
                                                 <IconButton
                                                     aria-label="Edit Mission"

@@ -4,21 +4,41 @@ import DialogTitle from "@mui/material/DialogTitle";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import Button from "@mui/material/Button";
+import IconButton from "@mui/material/IconButton";
+
+import CloseIcon from "@mui/icons-material/Close";
 
 import ModalContext from "./ModalContext";
 import {TDialogWidth, IDialogPropTypes, TOpenDialog, TEmptyFn} from "../types";
 
-interface IStateTypes {
-    value: IDialogPropTypes;
-    isOpen: boolean;
-    title: string;
-    okText?: string;
-    cancelText?: string;
-    width?: TDialogWidth;
-    component: React.ReactNode;
-    okCallback: TEmptyFn;
-    cancelCallback?: TEmptyFn;
+export interface IDialogTitleProps {
+    children?: React.ReactNode;
+    onClose: () => void;
 }
+
+const CustomDialogTitle = (props: IDialogTitleProps) => {
+    const {children, onClose, ...other} = props;
+
+    return (
+        <DialogTitle sx={{m: 0, p: 2}} {...other}>
+            {children}
+            {onClose ? (
+                <IconButton
+                    aria-label="close"
+                    onClick={onClose}
+                    sx={{
+                        position: "absolute",
+                        right: 8,
+                        top: 8,
+                        color: (theme) => theme.palette.grey[500]
+                    }}
+                >
+                    <CloseIcon />
+                </IconButton>
+            ) : null}
+        </DialogTitle>
+    );
+};
 
 interface IPropTypes {
     children: React.ReactNode;
@@ -79,17 +99,39 @@ const DialogProvider = (props: IPropTypes) => {
 
     return (
         <ModalContext.Provider value={value}>
-            <Dialog open={isOpen} onClose={handleClose} maxWidth={width} fullWidth>
-                {title && <DialogTitle>{title}</DialogTitle>}
+            <Dialog
+                open={isOpen}
+                onClose={handleClose}
+                maxWidth={width}
+                fullWidth
+                sx={(theme) => ({
+                    "& .MuiDialogContent-root": {
+                        p: theme.spacing(2)
+                    },
+                    "& .MuiDialogTitle-root + .MuiDialogContent-root": {
+                        p: theme.spacing(2)
+                    },
+                    "& .MuiDialogActions-root": {
+                        p: theme.spacing(1)
+                    }
+                })}
+            >
+                {title && <CustomDialogTitle onClose={handleClose}>{title}</CustomDialogTitle>}
                 <DialogContent>{component}</DialogContent>
-                <DialogActions>
-                    <Button onClick={handleClose} color="secondary">
-                        {cancelText}
-                    </Button>
-                    <Button onClick={okCallback} color="primary">
-                        {okText}
-                    </Button>
-                </DialogActions>
+                {(okText || cancelText) && (
+                    <DialogActions>
+                        {cancelText && (
+                            <Button onClick={handleClose} color="secondary">
+                                {cancelText}
+                            </Button>
+                        )}
+                        {okText && (
+                            <Button onClick={okCallback} color="primary">
+                                {okText}
+                            </Button>
+                        )}
+                    </DialogActions>
+                )}
             </Dialog>
             {props.children}
         </ModalContext.Provider>
