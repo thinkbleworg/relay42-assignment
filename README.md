@@ -2,7 +2,20 @@
 
 Mars Mission Project
 
-https://thinkbleworg.github.io/relay42-assignment/
+Live URL: https://thinkbleworg.github.io/relay42-assignment/
+
+# To run the changes locally
+
+1. Download the git https://github.com/thinkbleworg/relay42-assignment.git
+2. Checkout the main branch
+3. Run "npm i"
+4. Run "npm run start:dev"
+
+# To build the changes
+
+1. Download the git https://github.com/thinkbleworg/relay42-assignment.git
+2. Checkout the main branch
+3. Run "npm run deploy". This will publish the changes to gh-pages branch and the changes will be available on live url.
 
 # Functionalities
 
