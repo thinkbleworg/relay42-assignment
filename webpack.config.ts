@@ -19,7 +19,7 @@ const webpackConfig = (env): Configuration => ({
         plugins: [new TsconfigPathsPlugin()]
     },
     output: {
-        path: path.join(__dirname, "/dist"),
+        path: path.join(__dirname, "/build"),
         filename: "build.js"
     },
     module: {
@@ -30,7 +30,7 @@ const webpackConfig = (env): Configuration => ({
                 options: {
                     transpileOnly: true
                 },
-                exclude: /dist/
+                exclude: /build/
             }
         ]
     },
