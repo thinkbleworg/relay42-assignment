@@ -7,8 +7,11 @@
         "start:dev": "webpack-cli serve --mode=development --env development --open --hot",
         "build": "webpack --mode=production --env production --progress",
         "lint": "eslint './src/**/*.{ts,tsx}'",
-        "lint:fix": "eslint './src/**/*.{ts,tsx}' --fix"
+        "lint:fix": "eslint './src/**/*.{ts,tsx}' --fix",
+        "predeploy": "npm run build",
+        "deploy": "gh-pages -d build"
     },
+    "homepage": "https://thinkbleworg.github.io/relay42-assignment",
     "keywords": [],
     "author": "",
     "license": "ISC",
@@ -46,6 +49,7 @@
         "@mui/icons-material": "^5.11.11",
         "@mui/lab": "^5.0.0-alpha.122",
         "@mui/material": "^5.11.12",
+        "gh-pages": "^5.0.0",
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
         "react-hook-form": "^7.43.5",
