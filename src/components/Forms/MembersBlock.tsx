@@ -20,17 +20,41 @@ import {v4 as uuidv4} from "uuid";
 
 import {memberJobs, memberTypes} from "../utils/constants";
 
+import {TMemberForm} from "components/utils/schema";
+
 interface IMemberLayout {
     idx: number;
+    field: TMemberForm;
     handleRemoveMember: (idx: number) => void;
 }
 
 const MemberLayout = (props: IMemberLayout) => {
-    const {watch} = useFormContext();
+    const {watch, unregister} = useFormContext();
 
     const type = watch(`memberList.${props.idx}.type`);
 
     // console.log("type in member layout --->", type);
+
+    // console.log("fields in member layout --->", props.field, props.idx);
+
+    const handleReset = () => {
+        //reset fields of other types for the member
+        if (type === "Pilot") {
+            unregister([
+                `memberList.${props.idx}.age`,
+                `memberList.${props.idx}.wealth`,
+                `memberList.${props.idx}.job`
+            ]);
+        } else if (type === "Engineer") {
+            unregister([`memberList.${props.idx}.age`, `memberList.${props.idx}.wealth`]);
+        } else if (type === "Passenger") {
+            unregister([`memberList.${props.idx}.experience`, `memberList.${props.idx}.job`]);
+        }
+    };
+
+    useEffect(() => {
+        handleReset();
+    }, [type]);
 
     return (
         <Box sx={{py: 4, px: 2, display: "flex", maxWidth: "75rem", alignItems: "flex-start"}}>
@@ -180,10 +204,14 @@ const MembersBlock = (props: any) => {
                 </IconButton>
             </Box>
 
-            {fields.map(({id}, index: number) => (
-                <Box key={`member-list-${id}`}>
+            {fields.map((field: TMemberForm, index: number) => (
+                <Box key={`member-list-${field.id}`}>
                     <Divider />
-                    <MemberLayout idx={index} handleRemoveMember={handleRemoveMember} />
+                    <MemberLayout
+                        idx={index}
+                        field={field}
+                        handleRemoveMember={handleRemoveMember}
+                    />
                 </Box>
             ))}
         </Paper>

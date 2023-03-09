@@ -78,7 +78,7 @@ const CreateMission = (props: any) => {
         }
     }, [mode, missionData]);
 
-    // console.log(errors);
+    console.log(errors);
 
     return (
         <FormProvider {...methods}>
