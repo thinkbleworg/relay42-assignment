@@ -33,7 +33,7 @@ const LogoBar = () => {
                             variant="h4"
                             noWrap
                             component="a"
-                            href="/"
+                            href={process.env.PRODUCTION ? "/" : "/relay42-assignment"}
                             sx={{
                                 mr: 2,
                                 display: "flex",
