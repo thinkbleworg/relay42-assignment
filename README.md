@@ -59,6 +59,8 @@ Live URL: https://thinkbleworg.github.io/relay42-assignment/
 1. JS Comments for methods and modules
 2. Fix Typescript Eslint warnings
 3. Responsive Design Changes
+4. Include toaster on successful form submission
+5. Handle empty data when search mission is not found
 
 # Components Defined
 
@@ -76,6 +78,7 @@ Live URL: https://thinkbleworg.github.io/relay42-assignment/
 6. Hook form resolvers for bridging Zod to react-hook-form
 7. Eslint and its related modules
 8. Webpack and TS-loader for bundling and transpiling
+9. Cypress for component testing
 
 # Testing
 
