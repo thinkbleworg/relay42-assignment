@@ -5,13 +5,17 @@ import HtmlWebpackPlugin from "html-webpack-plugin";
 import ForkTsCheckerWebpackPlugin from "fork-ts-checker-webpack-plugin";
 import ESLintPlugin from "eslint-webpack-plugin";
 import {TsconfigPathsPlugin} from "tsconfig-paths-webpack-plugin";
+import CopyPlugin from "copy-webpack-plugin";
 
 interface Configuration extends WebpackConfiguration {
     devServer?: WebpackDevServerConfiguration;
 }
 
 const webpackConfig = (env): Configuration => ({
-    mode: env.production ? "production" : "development",
+    mode: ((env) => {
+        console.log("env", env);
+        return env.production ? "production" : "development";
+    })(env),
     entry: "./src/index.tsx",
     ...(env.production || !env.development ? {} : {devtool: "eval-source-map"}),
     resolve: {
@@ -49,7 +53,10 @@ const webpackConfig = (env): Configuration => ({
             "process.env.VERSION": JSON.stringify(require("./package.json").version)
         }),
         new ForkTsCheckerWebpackPlugin(),
-        new ESLintPlugin({files: "./src/**/*.{ts,tsx,js,jsx}"})
+        new ESLintPlugin({files: "./src/**/*.{ts,tsx,js,jsx}"}),
+        new CopyPlugin({
+            patterns: [{from: path.resolve("public", "data.json")}]
+        })
     ]
 });
 

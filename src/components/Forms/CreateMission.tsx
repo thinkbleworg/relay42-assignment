@@ -14,7 +14,12 @@ import SelectInput from "./SelectInput";
 import MembersBlock from "./MembersBlock";
 import CustomErrors from "./CustomFormError";
 
-import {NEW_MISSION_DATE_TO_SET, missionDestination, ERRORS} from "../utils/constants";
+import {
+    NEW_MISSION_DATE_TO_SET,
+    missionDestination,
+    ERRORS,
+    STATIC_TEXTS
+} from "../utils/constants";
 import {formatDate, findDateDifference} from "../utils/utils";
 
 import {missionSchema, TMissionForm} from "../utils/schema";
@@ -22,10 +27,10 @@ import {IData} from "components/utils/types";
 
 const CreateMission = (props: any) => {
     // console.log("props in create mission", props);
-    const {mode, missionData, okCallback} = props;
+    const {mode, missionData, okCallback, existingMissionNames} = props;
 
     const [loading, setLoading] = useState<boolean>(false);
-    const [disableSubmit, setDisableSubmit] = useState<boolean>(false);
+    const [missionNonEditable, setMissionNonEditable] = useState<boolean>(false);
 
     const STATIC_DEFAULT_VALUES = {
         id: uuidv4(),
@@ -49,9 +54,13 @@ const CreateMission = (props: any) => {
         register,
         getValues,
         handleSubmit,
+        watch,
+        setError,
         formState: {isSubmitSuccessful, errors},
         clearErrors
     } = methods;
+
+    const missionNameWatch = watch(`missionName`);
 
     useEffect(() => {
         if (isSubmitSuccessful) {
@@ -68,15 +77,42 @@ const CreateMission = (props: any) => {
         }
     };
 
-    useEffect(() => {
+    const validateDepartedMissions = () => {
         if (mode === "edit" && missionData && missionData.hasOwnProperty("departureDate")) {
             //Check for departed missions and disable submit button
             const diff = findDateDifference(missionData.departureDate);
-            diff < 0 ? setDisableSubmit(true) : setDisableSubmit(false);
+            diff < 0 ? setMissionNonEditable(true) : setMissionNonEditable(false);
         } else {
-            setDisableSubmit(false);
+            setMissionNonEditable(false);
         }
+    };
+
+    const validateMissionNameField = () => {
+        if (existingMissionNames && mode !== "edit") {
+            if (
+                existingMissionNames.length > 0 &&
+                existingMissionNames
+                    .map((str) => str.toLowerCase())
+                    .includes(missionNameWatch.toLowerCase())
+            ) {
+                // set error
+                setError("missionName", {
+                    type: "custom",
+                    message: ERRORS.MISSION_NAME.ALREADY_PRESENT
+                });
+            } else {
+                clearErrors("missionName");
+            }
+        }
+    };
+
+    useEffect(() => {
+        validateDepartedMissions();
     }, [mode, missionData]);
+
+    useEffect(() => {
+        validateMissionNameField();
+    }, [missionNameWatch]);
 
     console.log(errors);
 
@@ -95,10 +131,17 @@ const CreateMission = (props: any) => {
                         fullWidth
                         label="Mission Name"
                         type="text"
+                        disabled={mode === "edit" || missionNonEditable}
                         sx={{mr: 5}}
                     />
 
-                    <SelectInput name="destination" fullWidth label="Destination" sx={{mr: 5}}>
+                    <SelectInput
+                        name="destination"
+                        fullWidth
+                        label="Destination"
+                        sx={{mr: 5}}
+                        disabled={missionNonEditable}
+                    >
                         <MenuItem value="">
                             <em>None</em>
                         </MenuItem>
@@ -115,13 +158,14 @@ const CreateMission = (props: any) => {
                         fullWidth
                         label="Departure Date"
                         type="date"
+                        disabled={missionNonEditable}
                         inputProps={{
                             min: formatDate(new Date().toLocaleDateString())
                         }}
                     />
                 </Box>
 
-                <MembersBlock />
+                <MembersBlock missionNonEditable={missionNonEditable} />
 
                 <Box
                     sx={{
@@ -131,22 +175,25 @@ const CreateMission = (props: any) => {
                         alignItems: "center"
                     }}
                 >
-                    {disableSubmit && (
+                    {missionNonEditable && (
                         <Box sx={{mr: 2}}>
-                            <CustomErrors customError={ERRORS.DEPARTED_MISSION} />
+                            <CustomErrors
+                                customError={ERRORS.DEPARTED_MISSION}
+                                className="mission-errors"
+                            />
                         </Box>
                     )}
                     <LoadingButton
                         variant="contained"
                         type="submit"
                         loading={loading}
-                        disabled={disableSubmit}
+                        disabled={missionNonEditable}
                         sx={{py: "0.8rem", mt: "1rem"}}
                     >
                         {mode === "edit" ? (
-                            <React.Fragment>Edit</React.Fragment>
+                            <React.Fragment>{STATIC_TEXTS.EDIT}</React.Fragment>
                         ) : (
-                            <React.Fragment>Create</React.Fragment>
+                            <React.Fragment>{STATIC_TEXTS.CREATE}</React.Fragment>
                         )}
                     </LoadingButton>
                 </Box>

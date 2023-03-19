@@ -22,7 +22,7 @@ Live URL: https://thinkbleworg.github.io/relay42-assignment/
 1. Mission can be searched with mission names
 2. Missions can be selected and deleted as a single mission or as a whole
 3. Mission Table is sortable
-4. Mission with Departure Date in past are set as "Departed"
+4. Mission with Departure Date in past are set as "Departed", and the fields and form submission will be disabled
 5. Mission table is paginated and no. of entities can be choosen.
 6. Mission can be edited when clicked on edit icon which opens a modal
 7. Create Button is used to create a new mission
@@ -49,15 +49,16 @@ Live URL: https://thinkbleworg.github.io/relay42-assignment/
 4. All engineers have different job (can't have 2 engineers with the same job)
 5. At least 1 passenger
 6. Member name is required
-7. Missions with past dates are not be editable, and datepicker are not let select past dates
+7. Missions with past dates are not be editable, and datepicker are not let select past dates. Even on typing previous dates, field will be errored on submission
 8. While creating a new mission, departure date should be set to 1 month of current date
+9. Mission name should be unique, and cannot be from the existing names
+10. Passenger wealth for a mission should 10000 max. If a passenger holds the required wealth, then no more passenger addition will be allowed.
 
 # TODO
 
-1. Select Field Keyboard nav not working
-2. Scroll for Mission Table
-3. JS Comments for methods and modules
-4. Fix Typescript Eslint warnings
+1. Scroll for Mission Table
+2. JS Comments for methods and modules
+3. Fix Typescript Eslint warnings
 
 # Components Defined
 
@@ -75,3 +76,12 @@ Live URL: https://thinkbleworg.github.io/relay42-assignment/
 6. Hook form resolvers for bridging Zod to react-hook-form
 7. Eslint and its related modules
 8. Webpack and TS-loader for bundling and transpiling
+
+# Testing
+
+Cypress component testing is introduced only for Create Mission Component. To run the tests,
+
+1. Download the git https://github.com/thinkbleworg/relay42-assignment.git
+2. Checkout the main branch
+3. Run "npm i"
+4. Run "npm run cy:open"

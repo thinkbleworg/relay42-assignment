@@ -1,0 +1,31 @@
+{
+    "mode": "edit",
+    "values": {
+        "id": "4f5bc723-9500-4cdb-a12b-674ebab66d50",
+        "departureDate": "2023-02-17",
+        "destination": "Mars Alpha - 100",
+        "missionName": "Mars Mission 01",
+        "memberList": [
+            {
+                "id": "b40dcec0-3732-43c6-a98d-4995f409cc92",
+                "experience": 20,
+                "name": "pilotname",
+                "type": "Pilot"
+            },
+            {
+                "id": "85417392-36e1-4462-9ec1-8eaae6942b92",
+                "age": 23,
+                "name": "passengername",
+                "type": "Passenger",
+                "wealth": 2300
+            },
+            {
+                "id": "0b77da1b-3346-4938-9bdb-5a97793e89fd",
+                "experience": 20,
+                "job": "Solar Panels",
+                "name": "engineer name 1",
+                "type": "Engineer"
+            }
+        ]
+    }
+}

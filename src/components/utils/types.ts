@@ -26,7 +26,7 @@ type TEngineer = {
 
 type TPassenger = {
     type: "Passenger";
-    wealth: string;
+    wealth: number;
 
     /**
      * The age of the passenger

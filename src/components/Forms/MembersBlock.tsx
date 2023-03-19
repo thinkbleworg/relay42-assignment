@@ -25,6 +25,7 @@ import {TMemberForm} from "components/utils/schema";
 interface IMemberLayout {
     idx: number;
     field: TMemberForm;
+    missionNonEditable: boolean;
     handleRemoveMember: (idx: number) => void;
 }
 
@@ -57,7 +58,10 @@ const MemberLayout = (props: IMemberLayout) => {
     }, [type]);
 
     return (
-        <Box sx={{py: 4, px: 2, display: "flex", maxWidth: "75rem", alignItems: "flex-start"}}>
+        <Box
+            sx={{py: 4, px: 2, display: "flex", maxWidth: "75rem", alignItems: "flex-start"}}
+            className={`member-block-${props.idx}`}
+        >
             <TextInput
                 name={`memberList.${props.idx}.name`}
                 required
@@ -66,12 +70,14 @@ const MemberLayout = (props: IMemberLayout) => {
                 label="Name"
                 type="text"
                 sx={{mr: 5}}
+                disabled={props.missionNonEditable}
             />
             <SelectInput
                 name={`memberList.${props.idx}.type`}
                 label="Type"
                 required
                 fullWidth
+                disabled={props.missionNonEditable}
                 arrayIndex={props.idx}
                 sx={{mr: 5, maxWidth: "150px"}}
             >
@@ -91,6 +97,7 @@ const MemberLayout = (props: IMemberLayout) => {
                     fullWidth
                     label="Experience"
                     type="number"
+                    disabled={props.missionNonEditable}
                     arrayIndex={props.idx}
                     InputProps={{inputProps: {min: 1, max: 30}}}
                     sx={{mr: 5}}
@@ -103,6 +110,7 @@ const MemberLayout = (props: IMemberLayout) => {
                     fullWidth
                     label="Age"
                     type="number"
+                    disabled={props.missionNonEditable}
                     arrayIndex={props.idx}
                     InputProps={{inputProps: {min: 1, max: 60}}}
                     sx={{mr: 5}}
@@ -115,6 +123,7 @@ const MemberLayout = (props: IMemberLayout) => {
                     required={type === "Engineer"}
                     fullWidth
                     defaultValue=""
+                    disabled={props.missionNonEditable}
                     arrayIndex={props.idx}
                     sx={{mr: 5}}
                 >
@@ -133,24 +142,29 @@ const MemberLayout = (props: IMemberLayout) => {
                     name={`memberList.${props.idx}.wealth`}
                     fullWidth
                     label="Wealth"
-                    type="text"
+                    type="number"
+                    disabled={props.missionNonEditable}
                     arrayIndex={props.idx}
                     sx={{mr: 5}}
                 />
             )}
             <Box sx={{py: 1}}>
-                <IconButton
-                    aria-label="Delete Member"
-                    onClick={() => props.handleRemoveMember(props.idx)}
-                >
-                    <DeleteIcon />
-                </IconButton>
+                {!props.missionNonEditable && (
+                    <IconButton
+                        aria-label="Delete Member"
+                        className={`delete-member-${props.idx}`}
+                        onClick={() => props.handleRemoveMember(props.idx)}
+                    >
+                        <DeleteIcon />
+                    </IconButton>
+                )}
             </Box>
         </Box>
     );
 };
 
 const MembersBlock = (props: any) => {
+    const {missionNonEditable} = props;
     const [customErrors, setCustomError] = useState<any>("");
     const {
         control,
@@ -189,19 +203,23 @@ const MembersBlock = (props: any) => {
                 <Typography variant="subtitle1" noWrap>
                     Members
                 </Typography>
-                {customErrors !== "" && <CustomErrors customError={customErrors} />}
-                <IconButton
-                    aria-label="add member"
-                    onClick={handleAddMember}
-                    sx={{
-                        position: "absolute",
-                        right: 8,
-                        top: 8,
-                        color: (theme) => theme.palette.grey[500]
-                    }}
-                >
-                    <AddIcon />
-                </IconButton>
+                {customErrors !== "" && (
+                    <CustomErrors className="member-errors" customError={customErrors} />
+                )}
+                {!missionNonEditable && (
+                    <IconButton
+                        aria-label="add member"
+                        onClick={handleAddMember}
+                        sx={{
+                            position: "absolute",
+                            right: 8,
+                            top: 8,
+                            color: (theme) => theme.palette.grey[500]
+                        }}
+                    >
+                        <AddIcon />
+                    </IconButton>
+                )}
             </Box>
 
             {fields.map((field: TMemberForm, index: number) => (
@@ -211,6 +229,7 @@ const MembersBlock = (props: any) => {
                         idx={index}
                         field={field}
                         handleRemoveMember={handleRemoveMember}
+                        missionNonEditable={missionNonEditable}
                     />
                 </Box>
             ))}

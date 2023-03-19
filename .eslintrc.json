@@ -1,9 +1,17 @@
 {
     "parser": "@typescript-eslint/parser",
-    "plugins": ["@typescript-eslint", "react", "react-hooks", "eslint-plugin-import", "prettier"],
+    "plugins": [
+        "@typescript-eslint",
+        "react",
+        "react-hooks",
+        "eslint-plugin-import",
+        "prettier",
+        "cypress"
+    ],
     "env": {
         "browser": false,
-        "node": true
+        "node": true,
+        "cypress/globals": true
     },
     "extends": [
         "plugin:@typescript-eslint/recommended",
@@ -29,7 +37,13 @@
         ],
         "react/prop-types": "off",
         "react-hooks/rules-of-hooks": "error",
-        "react-hooks/exhaustive-deps": "warn"
+        "react-hooks/exhaustive-deps": "warn",
+        "cypress/no-assigning-return-values": "error",
+        "cypress/no-unnecessary-waiting": "error",
+        "cypress/assertion-before-screenshot": "warn",
+        "cypress/no-force": "warn",
+        "cypress/no-async-tests": "error",
+        "cypress/no-pause": "error"
     },
     "settings": {
         "react": {

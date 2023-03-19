@@ -11,6 +11,7 @@ import {IDataList} from "components/utils/types";
 
 import ModalContext from "components/Dialog/ModalContext";
 import {IDialogPropTypes, IData} from "components/utils/types";
+import {STATIC_TEXTS} from "components/utils/constants";
 
 const MissionTableWithLoading = withLoading(MissionTable);
 
@@ -19,24 +20,22 @@ const App = () => {
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const {showModal, closeModal} = useContext<IDialogPropTypes>(ModalContext);
 
-    const fetchJson = () => {
-        fetch("./data.json", {
-            headers: {
-                "Access-Control-Allow-Origin": "*",
-                Accept: "application/json;odata.metadata=full",
-                "Content-Type": "application/json"
-            }
-        })
-            .then((response) => {
-                return response.json();
-            })
-            .then((data) => {
-                setData((data && data.missions) || []);
-                setIsLoading(false);
-            })
-            .catch((e: Error) => {
-                console.log(e.message);
+    const fetchJson = async () => {
+        try {
+            const response = await fetch("./data.json", {
+                headers: {
+                    "Access-Control-Allow-Origin": "*",
+                    Accept: "application/json;odata.metadata=full",
+                    "Content-Type": "application/json"
+                }
             });
+            const missionData = await response.json();
+            setData((missionData && missionData.missions) || []);
+            setIsLoading(false);
+        } catch (e: any) {
+            setIsLoading(false);
+            console.log(e.message);
+        }
     };
 
     useEffect(() => {
@@ -53,6 +52,10 @@ const App = () => {
             return item;
         });
         setData(updatedData);
+    };
+
+    const getMissionNames = () => {
+        return data.map((item: IData) => item.missionName);
     };
 
     const handleModalOkClick = (callbackValues: any) => {
@@ -75,11 +78,16 @@ const App = () => {
     const modalTriggerCallback = (mission: IData) => {
         const mode = mission ? "edit" : "new";
         const component = (
-            <CreateMission okCallback={handleModalOkClick} mode={mode} missionData={mission} />
+            <CreateMission
+                okCallback={handleModalOkClick}
+                mode={mode}
+                missionData={mission}
+                existingMissionNames={getMissionNames()}
+            />
         );
         showModal({
             component,
-            title: mode === "edit" ? "Edit a mission" : "Configure a new mission",
+            title: mode === "edit" ? STATIC_TEXTS.EDIT_MISSION : STATIC_TEXTS.CONFIGURE_NEW_MISSION,
             okCallback: (values: any) => {
                 handleModalOkClick(values);
             },
@@ -87,8 +95,6 @@ const App = () => {
                 handleModalCloseClick();
             },
             width: "lg"
-            // okText: "OK",
-            // cancelText: "Cancel"
         });
     };
 

@@ -3,10 +3,15 @@ import FormHelperText from "@mui/material/FormHelperText";
 
 interface ICustomErrors {
     customError: string;
+    className: string;
 }
 
-const CustomErrors = ({customError}: ICustomErrors) => {
-    return <FormHelperText error>{customError}</FormHelperText>;
+const CustomErrors = ({customError, className}: ICustomErrors) => {
+    return (
+        <FormHelperText className={className} error>
+            {customError}
+        </FormHelperText>
+    );
 };
 
 export default CustomErrors;

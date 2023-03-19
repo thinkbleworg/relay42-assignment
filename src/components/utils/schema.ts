@@ -20,9 +20,20 @@ export const memberSchema = object({
             }
         }
     }),
-    wealth: string().optional(),
+    wealth: coerce.number().optional(),
     experience: coerce.number().min(1).max(30).optional(),
-    job: zodEnum(memberJobs).optional(),
+    job: zodEnum(memberJobs, {
+        errorMap: (issue, _ctx) => {
+            switch (issue.code) {
+                case "invalid_type":
+                    return {message: ERRORS.JOB.REQUIRED};
+                case "invalid_enum_value":
+                    return {message: ERRORS.JOB.REQUIRED};
+                default:
+                    return {message: ERRORS.JOB.REQUIRED};
+            }
+        }
+    }).optional(),
     age: coerce.number().min(10).max(60).optional()
 }).superRefine((data, ctx) => {
     // console.log("data.type -->", data.type);
@@ -86,7 +97,16 @@ export const missionSchema = object({
         .nonempty(ERRORS.MISSION_NAME.REQUIRED)
         .max(32, ERRORS.MISSION_NAME.MAX_LIMIT_REACHED),
     destination: string().optional(),
-    departureDate: string().nonempty(ERRORS.DEPARTURE_DATE.REQUIRED),
+    departureDate: string()
+        .nonempty(ERRORS.DEPARTURE_DATE.REQUIRED)
+        .superRefine((data, ctx) => {
+            if (new Date(data).getTime() <= new Date().getTime()) {
+                ctx.addIssue({
+                    code: z.ZodIssueCode.custom,
+                    message: ERRORS.DEPARTURE_DATE.PAST_DEPATURE_DATE
+                });
+            }
+        }),
     memberList: array(memberSchema).superRefine((data, ctx) => {
         // console.log("memberList array data", data);
 
@@ -111,6 +131,16 @@ export const missionSchema = object({
                 code: z.ZodIssueCode.custom,
                 message: ERRORS.TYPE.ONE_PASSENGER_REQUIRED_RULE
             });
+        }
+
+        const passengerList = data.filter((d) => d.type === "Passenger");
+        const passengerWealthList = passengerList.filter((d) => d.wealth > 10000);
+        if (passengerList.length > 1 && passengerWealthList.length > 0) {
+            ctx.addIssue({
+                code: z.ZodIssueCode.custom,
+                message: ERRORS.WEALTH.PASSENGER_WEALTH_THRESHOLD_REACH
+            });
+        } else {
         }
 
         // Duplicate of engineer job list
