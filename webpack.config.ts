@@ -55,7 +55,10 @@ const webpackConfig = (env): Configuration => ({
         new ForkTsCheckerWebpackPlugin(),
         new ESLintPlugin({files: "./src/**/*.{ts,tsx,js,jsx}"}),
         new CopyPlugin({
-            patterns: [{from: path.resolve("public", "data.json")}]
+            patterns: [
+                {from: path.resolve("public", "data.json")},
+                {from: path.resolve("public", "404.html")}
+            ]
         })
     ]
 });

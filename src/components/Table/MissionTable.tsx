@@ -120,8 +120,13 @@ const MissionTable = (props: any) => {
                     updateSearchResults={updateSearchResults}
                     handleCreateBtnClick={handleCreateBtnClick}
                 />
-                <TableContainer>
-                    <Table sx={{minWidth: 750}} aria-labelledby="tableTitle" size={"medium"}>
+                <TableContainer sx={{maxHeight: 350}}>
+                    <Table
+                        stickyHeader
+                        sx={{minWidth: 750}}
+                        aria-labelledby="tableTitle"
+                        size={"medium"}
+                    >
                         <TableHeader
                             numSelected={selected.length}
                             order={order}

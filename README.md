@@ -56,9 +56,9 @@ Live URL: https://thinkbleworg.github.io/relay42-assignment/
 
 # TODO
 
-1. Scroll for Mission Table
-2. JS Comments for methods and modules
-3. Fix Typescript Eslint warnings
+1. JS Comments for methods and modules
+2. Fix Typescript Eslint warnings
+3. Responsive Design Changes
 
 # Components Defined
 
